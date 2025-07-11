@@ -3,6 +3,7 @@ import { UITexts, Page, Language } from '../types.ts';
 import { playCuteClickSound } from '../utils/audio.ts';
 import { BlenderBibleSection } from '../components/BlenderBibleSection.tsx';
 import SuperfoodSpotlightSection from '../components/SuperfoodSpotlightSection.tsx';
+import { FaqSection } from '../components/FaqSection.tsx';
 import { heroImageUrls } from '../data/heroImages.ts';
 import { menuData } from '../data/menu.ts';
 
@@ -263,8 +264,8 @@ const Footer: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void, cur
         ],
         learn: [
             { text: uiTexts.navBible, action: () => handleFooterLinkClick('landing', '#bible') },
-            { text: uiTexts.navBlog, action: () => {} }, // No action for disabled links
-            { text: uiTexts.navFAQ, action: () => {} },
+            { text: uiTexts.navFAQ, action: () => handleFooterLinkClick('landing', '#faq') },
+            { text: uiTexts.navBlog, action: () => {} },
         ]
     };
 
@@ -301,10 +302,10 @@ const Footer: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void, cur
                                     <li key={link.text}>
                                         <button 
                                             onClick={link.action} 
-                                            className={`text-base text-slate-600 ${link.text === uiTexts.navBible ? 'hover:text-rose-500' : 'opacity-50 cursor-not-allowed'} transition-colors`}
-                                            disabled={link.text !== uiTexts.navBible}
+                                            className={`text-base text-slate-600 ${link.text === uiTexts.navBlog ? 'opacity-50 cursor-not-allowed' : 'hover:text-rose-500'} transition-colors`}
+                                            disabled={Boolean(link.text === uiTexts.navBlog)}
                                         >
-                                            {link.text} {link.text !== uiTexts.navBible ? `(${currentLanguage === Language.TH ? 'เร็วๆ นี้' : 'Soon'})` : ''}
+                                            {link.text} {link.text === uiTexts.navBlog ? `(${currentLanguage === Language.TH ? 'เร็วๆ นี้' : 'Soon'})` : ''}
                                         </button>
                                     </li>
                                 ))}
@@ -322,7 +323,7 @@ const Footer: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void, cur
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3815.1452722909276!2d99.82631827515648!3d17.01654288380875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30de553697cf7d19%3A0x383e271ceb95f64b!2sJuice%20Me!5e0!3m2!1sen!2sth!4v1752245409795!5m2!1sen!2sth"
                                 className="w-full h-full"
                                 style={{ border: 0 }}
-                                allowFullScreen=""
+                                allowFullScreen={true}
                                 loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
                                 title="Juice Me Location Map"
@@ -375,6 +376,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ uiTexts, navigateTo, c
                 </div>
                 <div className="fade-in-section">
                     <BlenderBibleSection uiTexts={uiTexts} />
+                </div>
+                <div className="fade-in-section">
+                    <FaqSection uiTexts={uiTexts} currentLanguage={currentLanguage} />
                 </div>
                 <div className="fade-in-section">
                     <FinalCtaSection uiTexts={uiTexts} navigateTo={navigateTo} />

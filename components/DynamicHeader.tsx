@@ -102,8 +102,8 @@ const DynamicHeader: React.FC<DynamicHeaderProps> = ({ uiTexts, currentLanguage,
                 {openMenu === 'learn' && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-10 border border-slate-100">
                         <a onClick={() => handleNavClick('landing', '#bible')} className={dropdownItemClasses}>{uiTexts.navBible}</a>
+                        <a onClick={() => handleNavClick('landing', '#faq')} className={dropdownItemClasses}>{uiTexts.navFAQ}</a>
                         <a className={`${dropdownItemClasses} opacity-50 cursor-not-allowed`}>{uiTexts.navBlog}</a>
-                        <a className={`${dropdownItemClasses} opacity-50 cursor-not-allowed`}>{uiTexts.navFAQ}</a>
                     </div>
                 )}
             </div>
@@ -119,6 +119,7 @@ const DynamicHeader: React.FC<DynamicHeaderProps> = ({ uiTexts, currentLanguage,
                     <a onClick={() => handleNavClick('menu')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navMenu}</a>
                     <a onClick={() => handleNavClick('landing', '#why-us')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navWhyUs}</a>
                     <a onClick={() => handleNavClick('landing', '#bible')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navLearn}</a>
+                    <a onClick={() => handleNavClick('landing', '#faq')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navFAQ}</a>
                     <a onClick={() => handleNavClick('landing', '#contact')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navContact}</a>
                     <div className="border-t border-slate-200 my-2"></div>
                     <a onClick={() => handleNavClick('builder')} className="block px-3 py-2 rounded-md text-base font-medium text-white bg-rose-400 hover:bg-rose-500">{uiTexts.navShopNowCTA}</a>

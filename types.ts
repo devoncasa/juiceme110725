@@ -233,11 +233,26 @@ export interface UITexts {
   testimonial2Text: string;
   testimonial3Text: string;
 
+  faqTitle: string;
+  faqDescription: string;
+faqReadMore: string;
+
   // New Menu Page Texts
   menuHeroTitle: string;
   menuHeroSubtitle: string;
   menuAddOns: string;
   menuExtraIceBlending: string;
+
+  // Local SEO and Schema data
+  geoCoordinates: {
+    latitude: string;
+    longitude: string;
+  };
+  socialLinks: {
+    facebook: string;
+    instagram: string;
+    twitter: string;
+  };
 }
 
 export type Translations = {

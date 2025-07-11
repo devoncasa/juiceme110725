@@ -261,11 +261,26 @@ export const translations: Translations = {
     testimonial2Text: "\"ร้านประจำของฉันเลยหลังออกกำลังกาย โปรตีนสมูทตี้คือที่สุด!\"",
     testimonial3Text: "\"พนักงานน่ารักมากค่ะ บรรยากาศร้านก็ดีเยี่ยม เหมาะกับการมานั่งชิลล์ๆ\"",
 
+    faqTitle: "คำถามที่พบบ่อย",
+    faqDescription: "ทุกสิ่งที่คุณต้องรู้เกี่ยวกับน้ำผลไม้ สมูทตี้ และกระบวนการของเรา",
+    faqReadMore: "อ่านเพิ่มเติม...",
+
     // New Menu Page Texts
     menuHeroTitle: "สดใหม่ทุกแก้ว อร่อยทุกเมนู สกัดเย็นเพื่อสุขภาพของคุณ",
     menuHeroSubtitle: "เลือกชมเมนูน้ำผลไม้สกัดเย็น สมูทตี้ และชาที่ทำสดใหม่แก้วต่อแก้ว",
     menuAddOns: "ท็อปปิ้ง",
     menuExtraIceBlending: "อยากปั่นเพิ่ม",
+
+    // Local SEO and Schema data
+    geoCoordinates: {
+        latitude: "17.0165625",
+        longitude: "99.8289375",
+    },
+    socialLinks: {
+        facebook: "https://facebook.com/juiceme_sukhothai",
+        instagram: "https://instagram.com/juiceme_sukhothai",
+        twitter: "https://twitter.com/juiceme_sukhothai",
+    },
   },
   [Language.EN]: {
     appTitle: "🍓 Juice Me 🥝",
@@ -433,11 +448,26 @@ export const translations: Translations = {
     testimonial2Text: "\"My go-to spot for a post-workout refuel. The protein smoothie is a game-changer!\"",
     testimonial3Text: "\"The staff is super friendly and the vibe is amazing. Perfect place to chill.\"",
 
+    faqTitle: "Frequently Asked Questions",
+    faqDescription: "Everything you need to know about our juices, smoothies, and process.",
+    faqReadMore: "Read more...",
+
     // New Menu Page Texts
     menuHeroTitle: "Natural. Fresh. Energizing. Just for You.",
     menuHeroSubtitle: "Explore our wide range of handcrafted juices, smoothies, and teas.",
     menuAddOns: "Add-ons",
     menuExtraIceBlending: "Extra Blending",
+
+    // Local SEO and Schema data
+    geoCoordinates: {
+        latitude: "17.0165625",
+        longitude: "99.8289375",
+    },
+    socialLinks: {
+        facebook: "https://facebook.com/juiceme_sukhothai",
+        instagram: "https://instagram.com/juiceme_sukhothai",
+        twitter: "https://twitter.com/juiceme_sukhothai",
+    },
   },
   [Language.ZH]: {
     appTitle: "🍓 Juice Me 🥝",
@@ -604,11 +634,26 @@ export const translations: Translations = {
     testimonial1Text: "\"城里最棒的果昔！非常清爽，而且我喜欢可以自己定制配料。\"",
     testimonial2Text: "\"我锻炼后补充能量的首选。蛋白质果昔太棒了！\"",
     testimonial3Text: "\"员工超级友好，氛围也很棒。是放松身心的完美去处。\"",
+    
+    faqTitle: "常见问题",
+    faqDescription: "关于我们的果汁、冰沙和制作过程，您需要知道的一切。",
+    faqReadMore: "阅读更多...",
 
     // New Menu Page Texts
     menuHeroTitle: "天然. 新鲜. 活力. 只为你.",
     menuHeroSubtitle: "探索我们手工制作的果汁、冰沙和茶饮",
     menuAddOns: "可添加",
     menuExtraIceBlending: "额外搅拌",
+
+    // Local SEO and Schema data
+    geoCoordinates: {
+        latitude: "17.0165625",
+        longitude: "99.8289375",
+    },
+    socialLinks: {
+        facebook: "https://facebook.com/juiceme_sukhothai",
+        instagram: "https://instagram.com/juiceme_sukhothai",
+        twitter: "https://twitter.com/juiceme_sukhothai",
+    },
   }
 };
