@@ -4,6 +4,7 @@ import { playCuteClickSound } from '../utils/audio.ts';
 import { BlenderBibleSection } from '../components/BlenderBibleSection.tsx';
 import SuperfoodSpotlightSection from '../components/SuperfoodSpotlightSection.tsx';
 import { heroImageUrls } from '../data/heroImages.ts';
+import { menuData } from '../data/menu.ts';
 
 // --- Sub-components for the new landing page structure ---
 
@@ -152,12 +153,45 @@ const SocialProofSection: React.FC<{ uiTexts: UITexts }> = ({ uiTexts }) => {
     );
 };
 
-const ProductShowcaseSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void }> = ({ uiTexts, navigateTo }) => {
-    const products = [
-        { name: uiTexts.product1Name, desc: uiTexts.product1Desc, image: 'https://i.postimg.cc/gk8z76vY/juice-me-image-place-holder-and-background-decorative-0015.jpg', price: 150, alt: 'A bottle of The Green Guardian cold-pressed juice with kale and green apple.' },
-        { name: uiTexts.product2Name, desc: uiTexts.product2Desc, image: 'https://i.postimg.cc/5jcrvy0g/juice-me-image-place-holder-and-background-decorative-0016.jpg', price: 150, alt: 'A bottle of Sunrise Boost cold-pressed juice with orange and carrot.' },
-        { name: uiTexts.product3Name, desc: uiTexts.product3Desc, image: 'https://i.postimg.cc/sftfKJG6/juice-me-image-place-holder-and-background-decorative-0014.jpg', price: 160, alt: 'A bottle of Berry Glow smoothie with mixed berries.' }
-    ];
+const ProductShowcaseSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void, currentLanguage: Language }> = ({ uiTexts, navigateTo, currentLanguage }) => {
+    const coldPressedCategory = menuData.find(cat => cat.id === 'cold-pressed');
+
+    const showcasedItemNames = ['Go Green Detox', 'ENERGY', 'Heart Health'];
+
+    const products = coldPressedCategory 
+        ? showcasedItemNames.map(nameEN => coldPressedCategory.items.find(item => item.name.en === nameEN))
+          .filter((item): item is NonNullable<typeof item> => !!item)
+          .map((item) => {
+            let image = '';
+            let altText = item.description?.[currentLanguage] ?? item.name[currentLanguage];
+
+            switch(item.name.en) {
+                case 'Go Green Detox':
+                    image = 'https://i.postimg.cc/gk8z76vY/juice-me-image-place-holder-and-background-decorative-0015.jpg';
+                    altText = `A bottle of ${item.name[currentLanguage]} juice surrounded by green apples and celery.`;
+                    break;
+                case 'ENERGY':
+                    image = 'https://i.postimg.cc/sftfKJG6/juice-me-image-place-holder-and-background-decorative-0014.jpg';
+                    altText = `A vibrant red ${item.name[currentLanguage]} juice bottle with beetroot and apple.`;
+                    break;
+                case 'Heart Health':
+                    image = 'https://i.postimg.cc/5jcrvy0g/juice-me-image-place-holder-and-background-decorative-0016.jpg';
+                    altText = `A bottle of red ${item.name[currentLanguage]} juice with apple and beetroot.`;
+                    break;
+                default:
+                    image = 'https://i.postimg.cc/qR5SJjH9/juice-me-image-place-holder-and-background-decorative-0017.jpg';
+            }
+            
+            return {
+                name: item.name[currentLanguage],
+                desc: item.ingredients?.[currentLanguage] || '',
+                image,
+                price: 50,
+                alt: altText
+            };
+        })
+        : [];
+        
     return (
         <section id="bestsellers" className="py-20 sm:py-24 bg-white">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -326,7 +360,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ uiTexts, navigateTo, c
                     <SocialProofSection uiTexts={uiTexts} />
                 </div>
                 <div className="fade-in-section">
-                    <ProductShowcaseSection uiTexts={uiTexts} navigateTo={navigateTo} />
+                    <ProductShowcaseSection uiTexts={uiTexts} navigateTo={navigateTo} currentLanguage={currentLanguage} />
                 </div>
                 <div className="fade-in-section">
                     <BlenderBibleSection uiTexts={uiTexts} />

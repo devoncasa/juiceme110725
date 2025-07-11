@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Page, UITexts, Language } from '../types.ts';
+import { menuData } from '../data/menu.ts';
 
 interface SeoManagerProps {
   page: Page;
@@ -84,35 +85,39 @@ const SeoManager: React.FC<SeoManagerProps> = ({ page, language, uiTexts }) => {
     }
   };
   
-  const productsSchema = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": uiTexts.product1Name,
-      "image": "https://i.postimg.cc/gk8z76vY/juice-me-image-place-holder-and-background-decorative-0015.jpg",
-      "description": uiTexts.product1Desc,
-      "brand": { "@type": "Brand", "name": "Juice Me" },
-      "offers": { "@type": "Offer", "url": `${BASE_URL}/builder`, "priceCurrency": "THB", "price": "150", "availability": "https://schema.org/InStock" }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": uiTexts.product2Name,
-      "image": "https://i.postimg.cc/5jcrvy0g/juice-me-image-place-holder-and-background-decorative-0016.jpg",
-      "description": uiTexts.product2Desc,
-      "brand": { "@type": "Brand", "name": "Juice Me" },
-      "offers": { "@type": "Offer", "url": `${BASE_URL}/builder`, "priceCurrency": "THB", "price": "150", "availability": "https://schema.org/InStock" }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": uiTexts.product3Name,
-      "image": "https://i.postimg.cc/sftfKJG6/juice-me-image-place-holder-and-background-decorative-0014.jpg",
-      "description": uiTexts.product3Desc,
-      "brand": { "@type": "Brand", "name": "Juice Me" },
-      "offers": { "@type": "Offer", "url": `${BASE_URL}/builder`, "priceCurrency": "THB", "price": "160", "availability": "https://schema.org/InStock" }
-    }
-  ];
+  const coldPressedCategory = menuData.find(cat => cat.id === 'cold-pressed');
+  const showcasedItemNames = ['Go Green Detox', 'ENERGY', 'Heart Health'];
+
+  const productsSchema = coldPressedCategory 
+    ? showcasedItemNames.map(nameEN => coldPressedCategory.items.find(item => item.name.en === nameEN))
+      .filter((item): item is NonNullable<typeof item> => !!item)
+      .map((item) => {
+        let image = '';
+        switch(item.name.en) {
+            case 'Go Green Detox':
+                image = 'https://i.postimg.cc/gk8z76vY/juice-me-image-place-holder-and-background-decorative-0015.jpg';
+                break;
+            case 'ENERGY':
+                image = 'https://i.postimg.cc/sftfKJG6/juice-me-image-place-holder-and-background-decorative-0014.jpg';
+                break;
+            case 'Heart Health':
+                image = 'https://i.postimg.cc/5jcrvy0g/juice-me-image-place-holder-and-background-decorative-0016.jpg';
+                break;
+            default:
+                image = 'https://i.postimg.cc/qR5SJjH9/juice-me-image-place-holder-and-background-decorative-0017.jpg';
+        }
+
+        return {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": item.name[language],
+          "image": image,
+          "description": item.ingredients?.[language] || '',
+          "brand": { "@type": "Brand", "name": "Juice Me" },
+          "offers": { "@type": "Offer", "url": `${BASE_URL}/menu`, "priceCurrency": "THB", "price": "50", "availability": "https://schema.org/InStock" }
+        };
+      })
+    : [];
 
   let pageSchema: any;
   switch (page) {

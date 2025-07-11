@@ -265,7 +265,7 @@ export const translations: Translations = {
     menuHeroTitle: "สดใหม่ทุกแก้ว อร่อยทุกเมนู สกัดเย็นเพื่อสุขภาพของคุณ",
     menuHeroSubtitle: "เลือกชมเมนูน้ำผลไม้สกัดเย็น สมูทตี้ และชาที่ทำสดใหม่แก้วต่อแก้ว",
     menuAddOns: "ท็อปปิ้ง",
-    menuExtraIceBlending: "ปั่นละเอียดพิเศษ",
+    menuExtraIceBlending: "อยากปั่นเพิ่ม",
   },
   [Language.EN]: {
     appTitle: "🍓 Juice Me 🥝",
@@ -437,7 +437,7 @@ export const translations: Translations = {
     menuHeroTitle: "Natural. Fresh. Energizing. Just for You.",
     menuHeroSubtitle: "Explore our wide range of handcrafted juices, smoothies, and teas.",
     menuAddOns: "Add-ons",
-    menuExtraIceBlending: "Extra Ice Blending",
+    menuExtraIceBlending: "Extra Blending",
   },
   [Language.ZH]: {
     appTitle: "🍓 Juice Me 🥝",
@@ -609,6 +609,6 @@ export const translations: Translations = {
     menuHeroTitle: "天然. 新鲜. 活力. 只为你.",
     menuHeroSubtitle: "探索我们手工制作的果汁、冰沙和茶饮",
     menuAddOns: "可添加",
-    menuExtraIceBlending: "额外加冰搅拌",
+    menuExtraIceBlending: "额外搅拌",
   }
 };
