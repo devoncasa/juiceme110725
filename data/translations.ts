@@ -214,7 +214,7 @@ export const translations: Translations = {
     coldPressedFullContent: coldPressedFullContentTH,
 
     contactTitle: "แวะมาทักทาย!",
-    contactAddress: "ตำบลปากแคว, อำเภอเมืองสุโขทัย, สุโขทัย 64000",
+    contactAddress: "JUICE ME! : ตำบลปากแคว, อำเภอเมืองสุโขทัย, สุโขทัย 64000",
     contactHours: "เปิดทุกวัน: 11:00 - 19:00 น.",
     contactPhone: "โทร: 086-679-1656",
     contactPrice: "ราคา: ฿1 - ฿100 ต่อคน",
@@ -386,7 +386,7 @@ export const translations: Translations = {
     coldPressedFullContent: coldPressedFullContentEN,
     
     contactTitle: "Come Say Hi!",
-    contactAddress: "Pak Khwae, Mueang Sukhothai District, Sukhothai 64000",
+    contactAddress: "JUICE ME! : Pak Khwae, Mueang Sukhothai District, Sukhothai 64000",
     contactHours: "Open Daily: 11:00 AM - 7:00 PM",
     contactPhone: "Tel: 086-679-1656",
     contactPrice: "Price: ฿1 - ฿100 per person",
@@ -558,7 +558,7 @@ export const translations: Translations = {
     coldPressedFullContent: coldPressedFullContentZH,
 
     contactTitle: "欢迎光临！",
-    contactAddress: "泰国素可泰府素可泰直辖县Pak Khwae区 64000",
+    contactAddress: "JUICE ME! : 泰国素可泰府素可泰直辖县Pak Khwae区 64000",
     contactHours: "每日营业：上午 11:00 - 晚上 7:00",
     contactPhone: "电话: 086-679-1656",
     contactPrice: "价格：每人 ฿1 - ฿100",

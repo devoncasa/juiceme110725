@@ -317,6 +317,17 @@ const Footer: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void, cur
                         <p>{uiTexts.contactAddress}</p>
                         <p>{uiTexts.contactHours}</p>
                         <p>{uiTexts.contactPhone}</p>
+                        <div className="mt-4 rounded-lg overflow-hidden shadow-md border border-slate-200 aspect-[5/3]">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3815.1452722909276!2d99.82631827515648!3d17.01654288380875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30de553697cf7d19%3A0x383e271ceb95f64b!2sJuice%20Me!5e0!3m2!1sen!2sth!4v1752245409795!5m2!1sen!2sth"
+                                className="w-full h-full"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                title="Juice Me Location Map"
+                            ></iframe>
+                        </div>
                     </div>
                 </div>
                 <div className="mt-12 border-t border-slate-200 pt-8">
