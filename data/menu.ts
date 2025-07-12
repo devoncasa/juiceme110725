@@ -182,8 +182,8 @@ export const menuData: MenuCategory[] = [
   },
   {
     id: 'special-drinks',
-    title: { [Language.EN]: 'Special Drinks', [Language.TH]: 'ดุดื่ม', [Language.ZH]: '特色饮品' },
-    description: { [Language.EN]: 'Classic Thai favorites and comforting drinks.', [Language.TH]: 'เครื่องดื่มคลาสสิกยอดนิยมและเครื่องดื่มชวนผ่อนคลาย', [Language.ZH]: '经典的泰式最爱和舒适饮品。' },
+    title: { [Language.EN]: 'Slurp & Serve', [Language.TH]: 'ดูดดื่ม', [Language.ZH]: '吸一口' },
+    description: { [Language.EN]: 'Classic Thai favorites and comforting drinks. Add a shake for a frothy texture!', [Language.TH]: 'เครื่องดื่มคลาสสิกยอดนิยมและเครื่องดื่มชวนผ่อนคลาย เพิ่มตัวเลือกปั่นเพื่อความนุ่มฟู!', [Language.ZH]: '经典的泰式最爱和舒适饮品。可选择摇匀以获得泡沫质感！' },
     priceNote: { [Language.EN]: '45฿ Each', [Language.TH]: 'แก้วละ 45฿', [Language.ZH]: '每杯 45฿' },
     image: 'https://i.postimg.cc/Zn3SX1vf/juice-me-image-place-holder-and-background-decorative-008.jpg',
     items: [
@@ -195,5 +195,11 @@ export const menuData: MenuCategory[] = [
       { name: { [Language.EN]: 'Fresh Milk', [Language.TH]: 'นมสด', [Language.ZH]: '鲜牛奶' } },
       { name: { [Language.EN]: 'Grass Jelly Milk', [Language.TH]: 'เฉาก๊วยนมสด', [Language.ZH]: '仙草奶冻' } },
     ],
+    addOns: {
+      title: { [Language.EN]: 'Customize', [Language.TH]: 'ปรับแต่ง', [Language.ZH]: '定制' },
+      items: [
+        { name: { [Language.EN]: 'Shake', [Language.TH]: 'ปั่น', [Language.ZH]: '摇匀' }, price: 10 },
+      ],
+    },
   },
 ];

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Language, UITexts, Page } from '../types.ts';
 import LanguageSwitcher from './LanguageSwitcher.tsx';
-import { playCuteClickSound } from '../utils/audio.ts';
 
 interface DynamicHeaderProps {
     uiTexts: UITexts;
     currentLanguage: Language;
     onLanguageChange: (lang: Language) => void;
-    navigateTo: (page: Page) => void;
+    navigateTo: (page: Page, anchor?: string) => void;
     currentPage: Page;
 }
 
@@ -36,21 +35,7 @@ const DynamicHeader: React.FC<DynamicHeaderProps> = ({ uiTexts, currentLanguage,
     }, []);
 
     const handleNavClick = (page: Page, anchor?: string) => {
-        playCuteClickSound();
-        if (currentPage === page && anchor) {
-            document.querySelector(anchor)?.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            navigateTo(page);
-             if (anchor) {
-                 // This is tricky, needs a slight delay to scroll after page renders
-                 setTimeout(() => {
-                    const element = document.querySelector(anchor!);
-                    if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                 }, 150);
-             }
-        }
+        navigateTo(page, anchor);
         setOpenMenu(null); // Close desktop dropdown
         setIsMobileMenuOpen(false); // Close mobile menu
     }
@@ -62,14 +47,14 @@ const DynamicHeader: React.FC<DynamicHeaderProps> = ({ uiTexts, currentLanguage,
         <div className="hidden md:flex items-center space-x-1">
             {/* Shop Dropdown */}
             <div className="relative" onMouseEnter={() => setOpenMenu('shop')} onMouseLeave={() => setOpenMenu(null)}>
-                <button onClick={() => handleNavClick('landing', '#bestsellers')} className={`${navLinkClasses} flex items-center`}>
+                <button onClick={() => handleNavClick('menu')} className={`${navLinkClasses} flex items-center`}>
                     {uiTexts.navShop}
                     <svg className={`w-4 h-4 ml-1 transition-transform ${openMenu === 'shop' ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 {openMenu === 'shop' && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-10 border border-slate-100">
-                        <a onClick={() => handleNavClick('landing', '#bestsellers')} className={dropdownItemClasses}>{uiTexts.navShopAll}</a>
-                        <a onClick={() => handleNavClick('landing', '#bestsellers')} className={dropdownItemClasses}>{uiTexts.navShopCleanses}</a>
+                        <a onClick={() => handleNavClick('menu')} className={dropdownItemClasses}>{uiTexts.navShopAll}</a>
+                        <a onClick={() => handleNavClick('menu', '#cold-pressed')} className={dropdownItemClasses}>{uiTexts.navShopCleanses}</a>
                         <a onClick={() => handleNavClick('builder')} className={dropdownItemClasses}>{uiTexts.navShopBuild}</a>
                         <a className={`${dropdownItemClasses} opacity-50 cursor-not-allowed`}>{uiTexts.navShopSubscribe}</a>
                     </div>
@@ -115,8 +100,7 @@ const DynamicHeader: React.FC<DynamicHeaderProps> = ({ uiTexts, currentLanguage,
         isMobileMenuOpen && (
             <div className="md:hidden bg-white/95 backdrop-blur-md absolute top-full left-0 w-full shadow-md">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                    <a onClick={() => handleNavClick('landing', '#bestsellers')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navShop}</a>
-                    <a onClick={() => handleNavClick('menu')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navMenu}</a>
+                    <a onClick={() => handleNavClick('menu')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navShop}</a>
                     <a onClick={() => handleNavClick('landing', '#why-us')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navWhyUs}</a>
                     <a onClick={() => handleNavClick('landing', '#bible')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navLearn}</a>
                     <a onClick={() => handleNavClick('landing', '#faq')} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-rose-500 hover:bg-rose-50">{uiTexts.navFAQ}</a>

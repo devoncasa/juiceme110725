@@ -5,7 +5,7 @@ import SmoothieBuilder from '../components/SmoothieBuilder.tsx';
 interface BuilderPageProps {
     uiTexts: UITexts;
     currentLanguage: Language;
-    navigateTo: (page: Page) => void;
+    navigateTo: (page: Page, anchor?: string) => void;
 }
 
 const BuilderPage: React.FC<BuilderPageProps> = ({ uiTexts, currentLanguage, navigateTo }) => {

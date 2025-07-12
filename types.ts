@@ -7,6 +7,10 @@ export enum Language {
 export type Page = 'landing' | 'builder' | 'cold-pressed-info' | 'menu';
 
 // New types for the menu page structure
+export interface AddOnItem {
+  name: { [key in Language]: string };
+  price: number;
+}
 export interface MenuItem {
   name: { [key in Language]: string };
   price?: number;
@@ -23,11 +27,22 @@ export interface MenuCategory {
   items: MenuItem[];
   addOns?: {
     title: { [key in Language]: string };
-    items: { 
-      name: { [key in Language]: string };
-      price: number;
-    }[];
+    items: AddOnItem[];
   };
+}
+
+export interface CartItem {
+  id: string; // Unique ID for the cart item, e.g., menuItemId-addon1Id-addon2Id
+  menuItem: MenuItem;
+  quantity: number;
+  selectedAddOns: AddOnItem[];
+  itemPrice: number; // Price of ONE item with its addons
+}
+
+export interface CustomerDetails {
+  name: string;
+  phone: string;
+  address: string;
 }
 
 
@@ -235,13 +250,55 @@ export interface UITexts {
 
   faqTitle: string;
   faqDescription: string;
-faqReadMore: string;
+  faqReadMore: string;
 
-  // New Menu Page Texts
+  // Menu & Ordering
   menuHeroTitle: string;
   menuHeroSubtitle: string;
+  menuIntroMessage: string;
   menuAddOns: string;
   menuExtraIceBlending: string;
+  addToCart: string;
+  quantity: string;
+  cartTitle: string;
+  emptyCart: string;
+  subtotal: string;
+  total: string;
+  checkout: string;
+  
+  // Checkout Page
+  checkoutTitle: string;
+  customerInfo: string;
+  fullNameLabel: string;
+  phoneLabel: string;
+  addressLabel: string;
+  orderSummary: string;
+  paymentInfo: string;
+  paymentInstructions: string;
+  confirmOrder: string;
+  continueShopping: string;
+  captureSummaryTitle: string;
+  captureSummaryInstruction: string;
+  captureSummaryButton: string;
+  captureSummaryPreview: string;
+  downloadCapturedImage: string;
+
+  // Confirmation Page
+  orderConfirmedTitle: string;
+  backToMenu: string;
+  confirmationStep1Title: string;
+  confirmationStep1Instruction: string;
+  confirmationStep2Title: string;
+  confirmationStep2Instruction: string;
+  confirmationStep2InboxLink: string;
+  confirmationStep2Includes: string;
+  confirmationStep2IncludeSlip: string;
+  confirmationStep2IncludeSummaryImage: string;
+  confirmationStep2IncludeDetails: string;
+  confirmationStep3Title: string;
+  confirmationStep3Instruction: string;
+  confirmationCallToAction: string;
+  confirmationThankYou: string;
 
   // Local SEO and Schema data
   geoCoordinates: {

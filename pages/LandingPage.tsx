@@ -68,7 +68,7 @@ const ProblemPromiseSection: React.FC<{ uiTexts: UITexts }> = ({ uiTexts }) => {
     );
 }
 
-const ValuePropositionSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void }> = ({ uiTexts, navigateTo }) => {
+const ValuePropositionSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page, anchor?: string) => void }> = ({ uiTexts, navigateTo }) => {
     const pillars = [
         { title: uiTexts.valuePropPillar1Title, description: uiTexts.valuePropPillar1Desc, iconUrl: 'https://i.postimg.cc/pVs3kV9s/100.webp', alt: 'Icon of fresh organic vegetables' },
         { title: uiTexts.valuePropPillar2Title, description: uiTexts.valuePropPillar2Desc, iconUrl: 'https://i.postimg.cc/V6YHB2zy/image.webp', alt: 'Icon of a droplet representing nutrient extraction' },
@@ -154,44 +154,45 @@ const SocialProofSection: React.FC<{ uiTexts: UITexts }> = ({ uiTexts }) => {
     );
 };
 
-const ProductShowcaseSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void, currentLanguage: Language }> = ({ uiTexts, navigateTo, currentLanguage }) => {
-    const coldPressedCategory = menuData.find(cat => cat.id === 'cold-pressed');
+interface ShowcasedProduct {
+    name: string;
+    desc: string;
+    image: string;
+    price: number;
+    alt: string;
+    categoryId: string;
+}
 
-    const showcasedItemNames = ['Go Green Detox', 'ENERGY', 'Heart Health'];
+const ProductShowcaseSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page, anchor?: string) => void, currentLanguage: Language }> = ({ uiTexts, navigateTo, currentLanguage }) => {
+    const [products, setProducts] = useState<ShowcasedProduct[]>([]);
 
-    const products = coldPressedCategory 
-        ? showcasedItemNames.map(nameEN => coldPressedCategory.items.find(item => item.name.en === nameEN))
-          .filter((item): item is NonNullable<typeof item> => !!item)
-          .map((item) => {
-            let image = '';
-            let altText = item.description?.[currentLanguage] ?? item.name[currentLanguage];
+    useEffect(() => {
+        // 1. Flatten all items from all categories
+        const allItems = menuData.flatMap(category => 
+            category.items.map(item => ({
+                item,
+                category
+            }))
+        );
 
-            switch(item.name.en) {
-                case 'Go Green Detox':
-                    image = 'https://i.postimg.cc/gk8z76vY/juice-me-image-place-holder-and-background-decorative-0015.jpg';
-                    altText = `A bottle of ${item.name[currentLanguage]} juice surrounded by green apples and celery.`;
-                    break;
-                case 'ENERGY':
-                    image = 'https://i.postimg.cc/sftfKJG6/juice-me-image-place-holder-and-background-decorative-0014.jpg';
-                    altText = `A vibrant red ${item.name[currentLanguage]} juice bottle with beetroot and apple.`;
-                    break;
-                case 'Heart Health':
-                    image = 'https://i.postimg.cc/5jcrvy0g/juice-me-image-place-holder-and-background-decorative-0016.jpg';
-                    altText = `A bottle of red ${item.name[currentLanguage]} juice with apple and beetroot.`;
-                    break;
-                default:
-                    image = 'https://i.postimg.cc/qR5SJjH9/juice-me-image-place-holder-and-background-decorative-0017.jpg';
-            }
-            
+        // 2. Shuffle the flattened list
+        const shuffled = [...allItems].sort(() => 0.5 - Math.random());
+
+        // 3. Take the first 3 and format them for display
+        const selectedProducts = shuffled.slice(0, 3).map(({ item, category }) => {
+            const price = item.price ?? parseInt(category.priceNote?.[currentLanguage].match(/\d+/)?.[0] || '50', 10);
             return {
                 name: item.name[currentLanguage],
-                desc: item.ingredients?.[currentLanguage] || '',
-                image,
-                price: 50,
-                alt: altText
+                desc: item.ingredients?.[currentLanguage] || item.description?.[currentLanguage] || '',
+                image: category.image,
+                price: price,
+                alt: `A delicious-looking ${item.name[currentLanguage]} from Juice Me`,
+                categoryId: category.id
             };
-        })
-        : [];
+        });
+
+        setProducts(selectedProducts);
+    }, [currentLanguage]); // Reruns when language changes to get correct text
         
     return (
         <section id="bestsellers" className="py-20 sm:py-24 bg-white">
@@ -208,10 +209,10 @@ const ProductShowcaseSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Pa
                             </div>
                             <div className="p-6 flex flex-col flex-grow">
                                 <h3 className="text-2xl font-bold text-slate-800">{p.name}</h3>
-                                <p className="text-slate-600 mt-2 mb-4 flex-grow">{p.desc}</p>
+                                <p className="text-slate-600 mt-2 mb-4 flex-grow min-h-[4rem]">{p.desc}</p>
                                 <div className="flex justify-between items-center mt-auto">
                                     <p className="text-2xl font-bold text-rose-500">{p.price} {uiTexts.currency}</p>
-                                    <button onClick={() => navigateTo('builder')} className="px-6 py-2 bg-rose-400 text-white font-semibold rounded-full hover:bg-rose-500 transition-colors">
+                                    <button onClick={() => navigateTo('menu', `#${p.categoryId}`)} className="px-6 py-2 bg-rose-400 text-white font-semibold rounded-full hover:bg-rose-500 transition-colors">
                                         {uiTexts.productShowcaseShopNow}
                                     </button>
                                 </div>
@@ -224,7 +225,7 @@ const ProductShowcaseSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Pa
     );
 };
 
-const FinalCtaSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void }> = ({ uiTexts, navigateTo }) => {
+const FinalCtaSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page, anchor?: string) => void }> = ({ uiTexts, navigateTo }) => {
     return (
         <section className="bg-teal-500">
             <div className="max-w-4xl mx-auto text-center py-16 sm:py-20 px-4">
@@ -240,20 +241,16 @@ const FinalCtaSection: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => 
     );
 }
 
-const Footer: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void, currentLanguage: Language }> = ({ uiTexts, navigateTo, currentLanguage }) => {
+const Footer: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page, anchor?: string) => void, currentLanguage: Language }> = ({ uiTexts, navigateTo, currentLanguage }) => {
     
     const handleFooterLinkClick = (page: Page, anchor?: string) => {
-        if (page === 'landing' && anchor) {
-            document.querySelector(anchor)?.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            navigateTo(page);
-        }
+        navigateTo(page, anchor);
     };
 
     const sitemapLinks = {
         shop: [
-            { text: uiTexts.navShopAll, action: () => handleFooterLinkClick('landing', '#bestsellers') },
-            { text: uiTexts.navShopCleanses, action: () => handleFooterLinkClick('landing', '#bestsellers') },
+            { text: uiTexts.navShopAll, action: () => handleFooterLinkClick('menu') },
+            { text: uiTexts.navShopCleanses, action: () => handleFooterLinkClick('menu', '#cold-pressed') },
             { text: uiTexts.navShopBuild, action: () => handleFooterLinkClick('builder') },
         ],
         whyUs: [
@@ -350,7 +347,7 @@ const Footer: React.FC<{ uiTexts: UITexts, navigateTo: (page: Page) => void, cur
 
 interface LandingPageProps {
   uiTexts: UITexts;
-  navigateTo: (page: Page) => void;
+  navigateTo: (page: Page, anchor?: string) => void;
   currentLanguage: Language;
 }
 

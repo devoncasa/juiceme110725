@@ -3,7 +3,7 @@ import { Page, UITexts } from '../types.ts';
 
 interface ColdPressedInfoPageProps {
     uiTexts: UITexts;
-    navigateTo: (page: Page) => void;
+    navigateTo: (page: Page, anchor?: string) => void;
 }
 
 export const ColdPressedInfoPage: React.FC<ColdPressedInfoPageProps> = ({ uiTexts, navigateTo }) => {

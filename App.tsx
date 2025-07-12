@@ -19,10 +19,32 @@ const App: React.FC = () => {
     setCurrentLanguage(lang);
   };
 
-  const navigateTo = (page: Page) => {
+  const navigateTo = (page: Page, anchor?: string) => {
     playCuteClickSound();
-    setCurrentPage(page);
-    window.scrollTo(0, 0); // Scroll to top on page change
+
+    const doScroll = () => {
+      if (anchor) {
+        const element = document.querySelector(anchor);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          console.warn(`Anchor "${anchor}" not found on page "${page}". Scrolling to top instead.`);
+          window.scrollTo(0, 0);
+        }
+      } else {
+        window.scrollTo(0, 0);
+      }
+    };
+
+    if (currentPage !== page) {
+      setCurrentPage(page);
+      // Wait for the new page to render before trying to scroll.
+      // requestAnimationFrame is a good way to wait for the next paint.
+      requestAnimationFrame(doScroll);
+    } else {
+      // If we are on the same page, just scroll.
+      doScroll();
+    }
   };
 
   const renderPage = () => {
